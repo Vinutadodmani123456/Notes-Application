@@ -1,0 +1,21 @@
+{
+  "name": "notenest-fullstack",
+  "version": "1.0.0",
+  "description": "Full-Stack Notes Application - NoteNest",
+  "scripts": {
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "install:server": "npm install --prefix server",
+    "install:client": "npm install --prefix client",
+    "install:all": "npm run install:server && npm run install:client",
+    "build:client": "npm run build --prefix client"
+  },
+  "keywords": [
+    "notenest",
+    "mern",
+    "notes-app",
+    "full-stack"
+  ],
+  "author": "",
+  "license": "ISC"
+}
