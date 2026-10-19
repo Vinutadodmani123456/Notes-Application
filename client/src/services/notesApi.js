@@ -30,13 +30,17 @@ export const getErrorMessage = (error) => {
  */
 export const notesApi = {
   /**
-   * Fetch all notes with optional search query
+   * Fetch all notes with optional search query and archive status
    * @param {string} search - Optional search string
+   * @param {boolean|string} archived - Optional archive filter (true/false)
    */
-  async getNotes(search = '') {
+  async getNotes(search = '', archived = undefined) {
     const params = {};
     if (search && search.trim() !== '') {
       params.search = search.trim();
+    }
+    if (archived !== undefined) {
+      params.archived = archived;
     }
     const response = await apiClient.get('/notes', { params });
     return response.data;

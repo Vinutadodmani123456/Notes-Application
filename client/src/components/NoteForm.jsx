@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Check, AlertCircle } from 'lucide-react';
+import { NOTE_THEME_COLORS } from '../utils/themeColors';
 
 const CATEGORIES = ['General', 'Work', 'Personal', 'Ideas', 'Study', 'Finance'];
 
@@ -17,6 +18,7 @@ export const NoteForm = ({
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('General');
+  const [color, setColor] = useState('#ffffff');
   const [errors, setErrors] = useState({});
 
   const isEditMode = Boolean(initialData && initialData._id);
@@ -27,10 +29,12 @@ export const NoteForm = ({
       setTitle(initialData.title || '');
       setContent(initialData.content || '');
       setCategory(initialData.category || 'General');
+      setColor(initialData.color || '#ffffff');
     } else {
       setTitle('');
       setContent('');
       setCategory('General');
+      setColor('#ffffff');
     }
     setErrors({});
   }, [initialData, isOpen]);
@@ -74,6 +78,7 @@ export const NoteForm = ({
       title: title.trim(),
       content: content.trim(),
       category: category.trim(),
+      color: color || '#ffffff',
     });
   };
 
@@ -134,24 +139,54 @@ export const NoteForm = ({
               )}
             </div>
 
-            {/* Category field */}
-            <div className="form-group">
-              <label htmlFor="note-category-select" className="form-label">
-                Category
-              </label>
-              <select
-                id="note-category-select"
-                className="form-select"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                disabled={isSubmitting}
-              >
-                {CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
+            {/* Category and Color Row */}
+            <div className="form-row-two-col">
+              {/* Category field */}
+              <div className="form-group" style={{ flex: 1 }}>
+                <label htmlFor="note-category-select" className="form-label">
+                  Category
+                </label>
+                <select
+                  id="note-category-select"
+                  className="form-select"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  disabled={isSubmitting}
+                >
+                  {CATEGORIES.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Theme Color Picker */}
+              <div className="form-group" style={{ flex: 1 }}>
+                <label className="form-label">
+                  Note Color Theme
+                </label>
+                <div className="color-swatch-picker" role="radiogroup" aria-label="Select note color theme">
+                  {NOTE_THEME_COLORS.map((c) => {
+                    const isSelected = (color || '#ffffff').toLowerCase() === c.colorHex.toLowerCase();
+                    return (
+                      <button
+                        key={c.id}
+                        type="button"
+                        className={`color-swatch-circle ${isSelected ? 'selected' : ''}`}
+                        style={{ backgroundColor: c.dot }}
+                        onClick={() => setColor(c.colorHex)}
+                        title={c.name}
+                        aria-label={c.name}
+                        aria-checked={isSelected}
+                        role="radio"
+                      >
+                        {isSelected && <Check size={11} color={c.id === 'lemon' || c.id === 'default' ? '#0f172a' : '#ffffff'} strokeWidth={3} />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
 
             {/* Content field */}

@@ -32,6 +32,18 @@ const noteSchema = new mongoose.Schema(
       type: String,
       default: '#ffffff',
     },
+    archived: {
+      type: Boolean,
+      default: false,
+    },
+    favorite: {
+      type: Boolean,
+      default: false,
+    },
+    trashed: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true, // Automatically manages createdAt and updatedAt

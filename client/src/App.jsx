@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import NotesPage from './pages/NotesPage';
+import WelcomeScreen from './components/WelcomeScreen';
 
 export function App() {
+  // Show welcome screen on initial open / session
+  const [hasStarted, setHasStarted] = useState(() => {
+    return sessionStorage.getItem('notes_app_started') === 'true';
+  });
+
+  const handleGetStarted = () => {
+    sessionStorage.setItem('notes_app_started', 'true');
+    setHasStarted(true);
+  };
+
   return (
     <>
       <Toaster
@@ -34,7 +45,11 @@ export function App() {
           },
         }}
       />
-      <NotesPage />
+      {!hasStarted ? (
+        <WelcomeScreen onGetStarted={handleGetStarted} />
+      ) : (
+        <NotesPage onReturnToWelcome={() => setHasStarted(false)} />
+      )}
     </>
   );
 }

@@ -15,13 +15,19 @@ const escapeRegex = (string) => {
  */
 const getNotes = async (req, res, next) => {
   try {
-    const { search } = req.query;
+    const { search, archived } = req.query;
     const filter = {};
 
     if (search && search.trim() !== '') {
       const sanitized = escapeRegex(search.trim());
       const regex = new RegExp(sanitized, 'i');
       filter.$or = [{ title: regex }, { content: regex }, { category: regex }];
+    }
+
+    if (archived === 'true') {
+      filter.archived = true;
+    } else if (archived === 'false') {
+      filter.archived = { $ne: true };
     }
 
     // Default sorting: most recently updated notes first
@@ -78,7 +84,7 @@ const getNoteById = async (req, res, next) => {
  */
 const createNote = async (req, res, next) => {
   try {
-    const { title, content, category, color, pinned } = req.body;
+    const { title, content, category, color, pinned, archived, favorite, trashed } = req.body;
 
     // Validate presence and trimmed content
     if (!title || typeof title !== 'string' || title.trim() === '') {
@@ -101,6 +107,9 @@ const createNote = async (req, res, next) => {
       category: category ? category.trim() : 'General',
       color: color || '#ffffff',
       pinned: typeof pinned === 'boolean' ? pinned : false,
+      archived: typeof archived === 'boolean' ? archived : false,
+      favorite: typeof favorite === 'boolean' ? favorite : false,
+      trashed: typeof trashed === 'boolean' ? trashed : false,
     });
 
     return res.status(201).json({
@@ -129,7 +138,7 @@ const updateNote = async (req, res, next) => {
       });
     }
 
-    const { title, content, category, color, pinned } = req.body;
+    const { title, content, category, color, pinned, archived, favorite, trashed } = req.body;
 
     // Build update payload
     const updates = {};
@@ -164,6 +173,18 @@ const updateNote = async (req, res, next) => {
 
     if (pinned !== undefined) {
       updates.pinned = Boolean(pinned);
+    }
+
+    if (archived !== undefined) {
+      updates.archived = Boolean(archived);
+    }
+
+    if (favorite !== undefined) {
+      updates.favorite = Boolean(favorite);
+    }
+
+    if (trashed !== undefined) {
+      updates.trashed = Boolean(trashed);
     }
 
     // Find and update; runValidators ensures schema constraints; timestamps will update updatedAt

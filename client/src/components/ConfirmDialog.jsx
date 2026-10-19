@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react';
-import { AlertTriangle, Trash2, X } from 'lucide-react';
+import { Trash2, RotateCcw, X } from 'lucide-react';
 
 /**
  * ConfirmDialog Component
- * Modal to confirm irreversible actions like note deletion
+ * - For active notes: confirms deletion
+ * - For trash section: asks user to Restore or permanently Delete note
  */
 export const ConfirmDialog = ({
   isOpen,
-  title = 'Delete Note',
-  message = 'Are you sure you want to delete this note?',
+  title = 'Delete Note?',
   noteTitle = '',
-  confirmLabel = 'Delete Note',
+  confirmLabel = 'Delete',
   cancelLabel = 'Cancel',
   onConfirm,
   onCancel,
+  onRestore, // Callback if user chooses to restore
   isConfirming = false,
 }) => {
   useEffect(() => {
@@ -28,87 +29,85 @@ export const ConfirmDialog = ({
 
   if (!isOpen) return null;
 
+  const isTrashSection = Boolean(onRestore);
+
   return (
     <div
-      className="modal-overlay"
+      className="modal-overlay delete-modal-overlay"
       onClick={(e) => {
         if (e.target === e.currentTarget && !isConfirming) onCancel();
       }}
       role="alertdialog"
       aria-modal="true"
-      aria-labelledby="confirm-dialog-title"
-      aria-describedby="confirm-dialog-desc"
+      aria-labelledby="delete-dialog-title"
     >
-      <div className="modal-content" style={{ maxWidth: '480px' }}>
-        <div className="modal-header">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-            <div
-              style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '8px',
-                background: 'var(--danger-subtle)',
-                color: 'var(--danger)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <AlertTriangle size={18} />
-            </div>
-            <h2 className="modal-title" id="confirm-dialog-title" style={{ fontSize: '1.15rem' }}>
-              {title}
-            </h2>
-          </div>
-          <button
-            type="button"
-            className="btn-ghost"
-            onClick={onCancel}
-            disabled={isConfirming}
-            aria-label="Close dialog"
-            id="btn-close-confirm-dialog"
-          >
-            <X size={20} />
-          </button>
+      <div className="delete-dialog-card">
+        {/* Top-Right Close 'x' Button */}
+        <button
+          type="button"
+          className="delete-dialog-close-btn"
+          onClick={onCancel}
+          disabled={isConfirming}
+          aria-label="Close dialog"
+          id="btn-close-delete-dialog"
+        >
+          <X size={18} />
+        </button>
+
+        {/* Circular Pink/Red Badge with Trash Icon */}
+        <div className="delete-icon-circle-badge">
+          <Trash2 size={30} className="delete-badge-trash-icon" strokeWidth={2.2} />
         </div>
 
-        <div className="modal-body" id="confirm-dialog-desc">
-          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-            {message}
+        {/* Heading: "Delete or Restore Note?" or "Delete Note?" */}
+        <h3 className="delete-dialog-heading" id="delete-dialog-title">
+          {isTrashSection ? 'Delete or Restore Note?' : title}
+        </h3>
+
+        {/* Message */}
+        <div className="delete-dialog-message-box">
+          <p className="delete-dialog-prompt">
+            {isTrashSection
+              ? `What would you like to do with ${noteTitle ? `"${noteTitle}"` : 'this note'}?`
+              : `Are you sure you want to delete ${noteTitle ? `"${noteTitle}"` : 'this note'}?`}
           </p>
-          {noteTitle && (
-            <div
-              style={{
-                padding: '0.75rem 1rem',
-                borderRadius: 'var(--radius-md)',
-                backgroundColor: 'var(--bg-secondary)',
-                border: '1px solid var(--border-subtle)',
-                fontWeight: 600,
-                color: 'var(--text-primary)',
-                wordBreak: 'break-word',
-              }}
-            >
-              "{noteTitle}"
-            </div>
-          )}
-          <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            This action cannot be undone and will permanently remove this record from MongoDB.
+          <p className="delete-dialog-subtext">
+            {isTrashSection
+              ? 'You can restore it to your notes or permanently delete it.'
+              : 'This action cannot be undone.'}
           </p>
         </div>
 
-        <div className="modal-footer">
+        {/* Actions Row */}
+        <div className={`delete-dialog-actions-row ${isTrashSection ? 'has-restore' : ''}`}>
           <button
             type="button"
-            className="btn btn-secondary"
+            className="delete-btn-cancel"
             onClick={onCancel}
             disabled={isConfirming}
             id="btn-cancel-delete"
           >
             {cancelLabel}
           </button>
+
+          {/* Restore Button (Shown in Trash Section) */}
+          {isTrashSection && (
+            <button
+              type="button"
+              className="delete-btn-restore"
+              onClick={onRestore}
+              disabled={isConfirming}
+              id="btn-restore-from-dialog"
+            >
+              <RotateCcw size={16} strokeWidth={2.2} />
+              <span>Restore</span>
+            </button>
+          )}
+
+          {/* Delete Button */}
           <button
             type="button"
-            className="btn btn-danger"
+            className="delete-btn-confirm"
             onClick={onConfirm}
             disabled={isConfirming}
             id="btn-confirm-delete"
@@ -116,12 +115,12 @@ export const ConfirmDialog = ({
             {isConfirming ? (
               <>
                 <div className="spinner" style={{ width: '16px', height: '16px', borderWidth: '2px', borderTopColor: '#fff' }} />
-                Deleting...
+                <span>Deleting...</span>
               </>
             ) : (
               <>
-                <Trash2 size={16} />
-                {confirmLabel}
+                <Trash2 size={16} strokeWidth={2.2} />
+                <span>{confirmLabel}</span>
               </>
             )}
           </button>

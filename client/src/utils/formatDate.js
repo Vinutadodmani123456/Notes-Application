@@ -52,3 +52,16 @@ export const formatFullDate = (dateString) => {
     minute: '2-digit',
   });
 };
+
+/**
+ * Formats note created date as date-month-year (e.g. 17/10/2026 or 8/1/2026)
+ */
+export const formatNoteCreatedDate = (dateString) => {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
