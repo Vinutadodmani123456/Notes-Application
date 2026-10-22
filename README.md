@@ -19,9 +19,8 @@
 12. [Running the Application](#running-the-application)
 13. [Manual Testing Checklist](#manual-testing-checklist)
 14. [Troubleshooting Common Issues](#troubleshooting-common-issues)
-15. [Screenshots](#screenshots)
-16. [Future Enhancements](#future-enhancements)
-17. [License](#license)
+15. [Future Enhancements](#future-enhancements)
+16. [License](#license)
 
 ---
 
@@ -404,26 +403,6 @@ node server/test-endpoints.js
   Stop-Process -Id <PID> -Force
   ```
 
----
-
-## 📸 Screenshots
-
-*(Capture and insert your application screenshots below)*
-
-### 1. Dashboard View (Grid Mode)
-![Dashboard Grid View](https://placehold.co/1200x675/4f46e5/ffffff?text=Dashboard+Grid+View)
-
-### 2. Create Note Modal
-![Create Note Modal](https://placehold.co/1200x675/10b981/ffffff?text=Create+Note+Modal)
-
-### 3. View Note Full Modal
-![View Note Modal](https://placehold.co/1200x675/6366f1/ffffff?text=View+Note+Modal)
-
-### 4. Dark Mode Theme
-![Dark Mode View](https://placehold.co/1200x675/0f172a/ffffff?text=Dark+Mode+Theme)
-
-### 5. Delete Confirmation Dialog
-![Delete Confirmation](https://placehold.co/1200x675/ef4444/ffffff?text=Delete+Confirmation+Dialog)
 
 ---
 
