@@ -1787,70 +1787,16 @@ body::before {
 .banner-content-grid {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
+  justify-content: center;
+  gap: 3.5rem;
   position: relative;
   z-index: 2;
+  padding: 0.25rem 1rem;
 }
 
-.banner-greeting-col {
-  display: flex;
-  flex-direction: column;
-  min-width: 250px;
-}
-
-.banner-greeting-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.banner-sun-emoji {
-  font-size: 1.45rem;
-  line-height: 1;
-}
-
-.banner-greeting-prefix {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: #1e1b4b;
-  letter-spacing: -0.01em;
-}
-
-[data-theme='dark'] .banner-greeting-prefix {
-  color: #ffffff;
-}
-
-.banner-user-headline {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-  font-size: 2.35rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 0.15rem 0 0.4rem;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-}
-
-[data-theme='dark'] .banner-user-headline {
-  background: linear-gradient(135deg, #c084fc 0%, #a855f7 50%, #818cf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.banner-tagline-text {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #64748b;
-  letter-spacing: 0.01em;
-}
-
-[data-theme='dark'] .banner-tagline-text {
-  color: #a5b4fc;
+.banner-content-grid.banner-centered-layout {
+  justify-content: center;
+  gap: 4rem;
 }
 
 .banner-illustration-col {

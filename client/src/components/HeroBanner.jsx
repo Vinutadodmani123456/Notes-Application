@@ -1,28 +1,17 @@
 import React from 'react';
-import { Feather, Sun, Moon } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 import bannerCenterArt from '../assets/banner_center_art_hd.png';
 
 /**
  * HeroBanner Component
- * Directly matches user's new reference banner:
- * - Top-left: NoteNest logo badge + NoteNest text
- * - Left: ☀️ Good Afternoon, / Vinuta! / Small notes. Big dreams. ✨
- * - Center: 3D purple journal, heart, pen, paper stack, and potted plant
- * - Right: "A little progress each day adds up to big results." with outline heart ~ ♡ ~ doodle
- * - Top-right: subtle theme toggle
+ * - 3D purple journal, heart, pen, paper stack, and potted plant
+ * - "A little progress each day adds up to big results." quote with outline heart ~ ♡ ~ doodle
+ * - Subtle theme toggle
  */
 export const HeroBanner = ({
   theme,
   onToggleTheme,
-  userName = 'Vinuta',
 }) => {
-  const getGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return 'Good Morning';
-    if (hour < 17) return 'Good Afternoon';
-    return 'Good Evening';
-  };
-
   return (
     <section className="hero-banner-card new-aesthetic-banner" aria-label="Welcome Banner">
       {/* Top Controls: Theme Toggle on top-right */}
@@ -37,27 +26,9 @@ export const HeroBanner = ({
         {theme === 'dark' ? <Moon size={18} color="#c084fc" /> : <Sun size={19} color="#6366f1" />}
       </button>
 
-      {/* Top-Left: NoteNest Logo & Brand */}
-      <div className="banner-brand-badge">
-        <div className="banner-brand-icon">
-          <Feather size={14} color="#ffffff" strokeWidth={2.5} />
-        </div>
-        <span className="banner-brand-name">NoteNest</span>
-      </div>
-
-      {/* Banner Main Content Grid */}
-      <div className="banner-content-grid">
-        {/* Left Column: Greeting */}
-        <div className="banner-greeting-col">
-          <div className="banner-greeting-row">
-            <span className="banner-sun-emoji" role="img" aria-label="Sun">☀️</span>
-            <span className="banner-greeting-prefix">{getGreeting()},</span>
-          </div>
-          <h1 className="banner-user-headline">{userName}!</h1>
-          <p className="banner-tagline-text">Small notes. Big dreams. ✨</p>
-        </div>
-
-        {/* Center: 3D Illustration */}
+      {/* Banner Main Content Grid: Centered 3D Art & Quote */}
+      <div className="banner-content-grid banner-centered-layout">
+        {/* 3D Illustration */}
         <div className="banner-illustration-col">
           <img
             src={bannerCenterArt}
@@ -66,7 +37,7 @@ export const HeroBanner = ({
           />
         </div>
 
-        {/* Right Column: Quote & Hand-drawn Heart Doodle */}
+        {/* Quote & Hand-drawn Heart Doodle */}
         <div className="banner-quote-col">
           <p className="banner-quote-text">
             &ldquo;A little progress<br />

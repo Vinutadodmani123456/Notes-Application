@@ -393,7 +393,6 @@ export const NotesPage = ({ onReturnToWelcome }) => {
           <HeroBanner
             theme={theme}
             onToggleTheme={toggleTheme}
-            userName="Vinuta"
           />
         )}
 
