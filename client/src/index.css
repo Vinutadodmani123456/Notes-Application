@@ -182,6 +182,7 @@ body::before {
   letter-spacing: -0.025em;
   background: var(--brand-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.15;
 }
@@ -553,6 +554,7 @@ body::before {
   word-break: break-word;
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -580,6 +582,7 @@ body::before {
 
 .notes-list .note-content-preview {
   -webkit-line-clamp: 1;
+  line-clamp: 1;
   flex: 1;
 }
 
@@ -1521,27 +1524,7 @@ body::before {
   color: #94a3b8;
 }
 
-@media (max-width: 900px) {
-  .app-sidebar {
-    width: 70px;
-    min-width: 70px;
-    padding: 1rem 0.5rem;
-  }
-  .sidebar-brand-title,
-  .nav-item-text,
-  .nav-item-badge {
-    display: none;
-  }
-  .sidebar-nav-item {
-    justify-content: center;
-    padding: 0.75rem;
-  }
-  .sidebar-footer {
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: center;
-  }
-}
+/* (Responsive sidebar styles unified in responsive section below) */
 
 /* ==========================================================================
    Welcome / Get Started Splash Screen (Matching User's Reference)
@@ -1933,15 +1916,7 @@ body::before {
   color: var(--text-primary);
 }
 
-@media (max-width: 1024px) {
-  .hero-banner-body {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .hero-center-illustration {
-    margin: 1rem 0;
-  }
-}
+/* (Responsive hero banner styles unified in responsive section below) */
 
 /* ==========================================================================
    Cute Smiling Document Empty State (Matching Image 1)
@@ -2318,9 +2293,558 @@ body::before {
   box-shadow: var(--shadow-md);
 }
 
+/* ==========================================================================
+   Comprehensive Responsive Design System: Desktop, Tablet & Mobile
+   ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   1. TABLET STYLES (641px - 1024px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Compact icon-based sidebar for tablets */
+  .app-sidebar {
+    width: 72px;
+    min-width: 72px;
+    padding: 1.25rem 0.5rem;
+    align-items: center;
+  }
 
+  .sidebar-header {
+    padding-bottom: 1.5rem;
+  }
 
+  .sidebar-brand-container {
+    justify-content: center;
+  }
 
+  .sidebar-brand-text-col,
+  .sidebar-tagline {
+    display: none !important;
+  }
 
+  .sidebar-nav {
+    align-items: center;
+    width: 100%;
+    gap: 0.75rem;
+  }
 
+  .sidebar-nav-item {
+    justify-content: center;
+    padding: 0.85rem 0.5rem;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    position: relative;
+  }
+
+  .sidebar-nav-item .nav-item-text {
+    display: none !important;
+  }
+
+  .sidebar-nav-item .nav-item-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    padding: 1px 5px;
+    font-size: 0.65rem;
+    min-width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Tablet Hero Banner */
+  .hero-banner-card {
+    margin: 1rem 1.25rem 0.65rem;
+    padding: 1.25rem 1.75rem;
+    border-radius: 20px;
+  }
+
+  .banner-content-grid.banner-centered-layout {
+    gap: 2.25rem;
+  }
+
+  .banner-3d-illustration-img {
+    max-height: 110px;
+  }
+
+  .banner-quote-text {
+    font-size: 1.05rem;
+  }
+
+  /* Tablet Category Cards Carousel */
+  .category-cards-section {
+    padding: 0.35rem 0.75rem 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .category-cards-container {
+    gap: 1.15rem;
+  }
+
+  .category-visual-card {
+    width: 155px;
+    min-width: 155px;
+  }
+
+  .category-card-thumb {
+    height: 86px;
+  }
+
+  /* Tablet Notes Grid: 2 columns */
+  .dashboard-main {
+    padding: 1.5rem 1.25rem 3rem;
+  }
+
+  .pastel-notes-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem;
+  }
+
+  /* Tablet Toolbar */
+  .toolbar-search-pill {
+    width: 200px;
+  }
+
+  .toolbar-search-pill:focus-within {
+    width: 240px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. MOBILE PHONES (max-width: 640px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  /* Main Layout: Column layout with fixed bottom navigation bar */
+  .app-layout-wrapper {
+    flex-direction: column !important;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Bottom Navigation Dock on Mobile */
+  .app-sidebar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: auto !important;
+    min-height: 58px !important;
+    max-height: 64px !important;
+    padding: 0.35rem 1rem calc(0.35rem + env(safe-area-inset-bottom, 0px)) !important;
+    border-right: none !important;
+    border-top: 1px solid var(--border-subtle) !important;
+    background-color: var(--bg-card) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    z-index: 100 !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08) !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+  }
+
+  [data-theme='dark'] .app-sidebar {
+    background-color: rgba(9, 13, 22, 0.96) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .sidebar-header {
+    display: none !important;
+  }
+
+  .sidebar-nav {
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 0.5rem !important;
+  }
+
+  .sidebar-nav-item {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    padding: 6px 12px !important;
+    border-radius: 12px !important;
+    font-size: 0.72rem !important;
+    flex: 1 !important;
+    max-width: 100px !important;
+    position: relative !important;
+    text-align: center !important;
+  }
+
+  .sidebar-nav-item .nav-item-icon {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .sidebar-nav-item .nav-item-text {
+    display: block !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+  }
+
+  .sidebar-nav-item .nav-item-badge {
+    position: absolute !important;
+    top: 2px !important;
+    right: 18px !important;
+    padding: 1px 5px !important;
+    font-size: 0.65rem !important;
+    border-radius: 999px !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+  }
+
+  /* Main content padding-bottom so bottom nav bar does not overlap notes */
+  .app-main-content {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 20px)) !important;
+  }
+
+  /* Mobile Hero Banner */
+  .hero-banner-card {
+    margin: 0.65rem 0.75rem 0.5rem !important;
+    padding: 1rem 1rem 1.15rem !important;
+    border-radius: 18px !important;
+  }
+
+  .banner-content-grid.banner-centered-layout {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    text-align: center !important;
+    padding: 0 !important;
+  }
+
+  .banner-illustration-col {
+    max-width: 100% !important;
+  }
+
+  .banner-3d-illustration-img {
+    max-height: 85px !important;
+  }
+
+  .banner-quote-col {
+    min-width: unset !important;
+    max-width: 100% !important;
+  }
+
+  .banner-quote-text {
+    font-size: 0.95rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .banner-heart-doodle svg {
+    width: 64px !important;
+    height: 18px !important;
+  }
+
+  .hero-theme-toggle-btn {
+    top: 0.65rem !important;
+    right: 0.65rem !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  /* Mobile Category Cards Carousel */
+  .category-cards-section {
+    margin-bottom: 1rem !important;
+    padding: 0.25rem 0.5rem 0.5rem !important;
+    scroll-behavior: smooth !important;
+    scroll-snap-type: x mandatory !important;
+  }
+
+  .category-cards-container {
+    gap: 0.75rem !important;
+    padding: 0 0.25rem !important;
+  }
+
+  .category-visual-card {
+    width: 125px !important;
+    min-width: 125px !important;
+    scroll-snap-align: start !important;
+  }
+
+  .category-card-thumb {
+    height: 70px !important;
+    border-radius: 14px !important;
+  }
+
+  .category-badge-circle {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .category-badge-circle svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .category-card-label {
+    font-size: 0.8rem !important;
+  }
+
+  .category-card-count {
+    font-size: 0.75rem !important;
+  }
+
+  /* Mobile Dashboard Main & Toolbar */
+  .dashboard-main {
+    padding: 0.75rem 0.75rem 2rem !important;
+    gap: 1rem !important;
+  }
+
+  .dashboard-toolbar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+
+  .toolbar-info {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  .toolbar-title {
+    font-size: 1.3rem !important;
+  }
+
+  .toolbar-search-pill {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .toolbar-search-pill:focus-within {
+    width: 100% !important;
+  }
+
+  .toolbar-controls {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+
+  .sort-control-container {
+    flex: 1 !important;
+    min-width: 115px !important;
+    padding: 5px 8px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .sort-select {
+    font-size: 0.8rem !important;
+  }
+
+  .view-toggle-group {
+    flex-shrink: 0 !important;
+  }
+
+  .view-toggle-btn {
+    padding: 5px 8px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .btn-primary#btn-new-note-toolbar {
+    padding: 0.55rem 0.85rem !important;
+    font-size: 0.82rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Mobile Notes Grid: 1 column */
+  .pastel-notes-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.875rem !important;
+  }
+
+  .pastel-note-card {
+    padding: 1.15rem !important;
+    min-height: 155px !important;
+    border-radius: 18px !important;
+  }
+
+  .pastel-card-title {
+    font-size: 1.08rem !important;
+  }
+
+  .pastel-card-content {
+    font-size: 0.9rem !important;
+    -webkit-line-clamp: 3 !important;
+    line-clamp: 3 !important;
+  }
+
+  .pastel-card-actions {
+    gap: 0.25rem !important;
+  }
+
+  .pastel-action-btn {
+    min-width: 32px !important;
+    min-height: 32px !important;
+  }
+
+  .pastel-card-date {
+    font-size: 0.8rem !important;
+  }
+
+  /* Mobile Notes List */
+  .pastel-notes-list {
+    gap: 0.75rem !important;
+  }
+
+  .pastel-notes-list .pastel-note-card {
+    padding: 1rem 1.15rem !important;
+    border-radius: 16px !important;
+  }
+
+  /* Mobile Modals */
+  .modal-overlay {
+    padding: 0.5rem !important;
+    align-items: flex-end !important;
+  }
+
+  .modal-content {
+    border-radius: 20px 20px 14px 14px !important;
+    max-height: 92vh !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .modal-header {
+    padding: 1rem 1.25rem !important;
+  }
+
+  .modal-title {
+    font-size: 1.15rem !important;
+  }
+
+  .modal-body {
+    padding: 1.15rem 1.25rem !important;
+    gap: 1rem !important;
+  }
+
+  .form-row-two-col {
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+  }
+
+  .color-swatch-picker {
+    gap: 6px !important;
+  }
+
+  .color-swatch-circle {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .modal-footer {
+    padding: 0.85rem 1.25rem !important;
+  }
+
+  /* Mobile Delete Dialog */
+  .delete-dialog-card {
+    width: 95% !important;
+    max-width: 360px !important;
+    padding: 1.5rem 1.25rem 1.25rem !important;
+    border-radius: 20px !important;
+  }
+
+  .delete-dialog-heading {
+    font-size: 1.2rem !important;
+  }
+
+  .delete-dialog-actions-row {
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+  }
+
+  .delete-dialog-actions-row.has-restore {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  .delete-dialog-actions-row.has-restore .delete-btn-cancel,
+  .delete-dialog-actions-row.has-restore .delete-btn-restore,
+  .delete-dialog-actions-row.has-restore .delete-btn-confirm {
+    width: 100% !important;
+    flex: unset !important;
+    padding: 0.75rem 1rem !important;
+  }
+
+  /* Mobile Welcome Splash Screen */
+  .welcome-screen-wrapper {
+    padding: 1rem 0.75rem !important;
+  }
+
+  .welcome-card-container {
+    min-height: 88vh !important;
+    padding: 0.5rem 0.25rem !important;
+  }
+
+  .welcome-script-title {
+    font-size: clamp(2.3rem, 8vw, 3.2rem) !important;
+  }
+
+  .welcome-subtitle {
+    font-size: clamp(1rem, 3.5vw, 1.15rem) !important;
+  }
+
+  .welcome-svg-art {
+    max-height: 240px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. EXTRA SMALL MOBILE PHONES (max-width: 380px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 380px) {
+  .hero-banner-card {
+    margin: 0.5rem 0.5rem 0.35rem !important;
+    padding: 0.85rem 0.75rem 1rem !important;
+  }
+
+  .dashboard-main {
+    padding: 0.5rem 0.5rem 2rem !important;
+  }
+
+  .toolbar-title {
+    font-size: 1.15rem !important;
+  }
+
+  .toolbar-controls {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .sort-control-container,
+  .btn-primary#btn-new-note-toolbar {
+    width: 100% !important;
+  }
+
+  .view-toggle-group {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .view-toggle-btn {
+    flex: 1 !important;
+    justify-content: center !important;
+  }
+}
